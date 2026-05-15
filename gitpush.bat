@@ -2,7 +2,6 @@
 setlocal enabledelayedexpansion
 
 echo [1/4] Pulling latest changes from GitHub...
-:: Added origin main explicitly to avoid tracking errors
 git pull origin main --allow-unrelated-histories
 if %errorlevel% neq 0 (
     echo.
@@ -19,17 +18,11 @@ echo.
 set /p commit_msg="[3/4] Enter commit message (or press Enter for 'Auto-update'): "
 if "!commit_msg!"=="" set commit_msg=Auto-update: %date% %time%
 
-git commit -m "!commit_msg!"
-if %errorlevel% neq 0 (
-    echo.
-    echo [INFO] No changes to commit.
-    pause
-    exit /b 0
-)
+:: We use || echo to prevent the script from stopping if there are no changes
+git commit -m "!commit_msg!" || echo [INFO] No new changes to commit, proceeding to push...
 
 echo.
 echo [4/4] Pushing to GitHub...
-:: Added origin main explicitly
 git push origin main
 if %errorlevel% neq 0 (
     echo.
