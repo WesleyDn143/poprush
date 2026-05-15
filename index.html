@@ -652,19 +652,6 @@
       }
     </script>
     <script>
-      // Mobile Menu Toggle
-      (function() {
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (menuToggle && mobileMenu) {
-          menuToggle.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            const icon = menuToggle.querySelector('.material-symbols-outlined');
-            if (icon) icon.textContent = isHidden ? 'menu' : 'close';
-          });
-        }
-      })();
-
       // Review & Toast Logic
       let selectedRevStars = 0;
       function setStarRating(rating) {

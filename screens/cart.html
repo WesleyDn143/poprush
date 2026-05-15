@@ -114,6 +114,46 @@
         transform: translateX(100%);
         opacity: 0;
       }
+
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .animate-spin {
+        animation: spin 1s linear infinite;
+      }
+      .btn-loading {
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      /* Success Modal */
+      #successModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+      }
+      #successModal.active {
+        display: flex;
+        animation: fadeIn 0.3s ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      @keyframes scaleIn {
+        from { transform: scale(0.9); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+      }
+      .modal-content {
+        animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
     </style>
     <script
       type="text/javascript"
@@ -845,17 +885,40 @@
 
         // Send Email to Owner & Customer (using multiple recipients or BCC if supported by template)
         // For now, we use the same service/template
+        const submitBtn = document.getElementById("checkoutBtn");
+        const originalContent = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.classList.add("btn-loading");
+        submitBtn.innerHTML = `
+          Processing...
+          <span class="material-symbols-outlined animate-spin">progress_activity</span>
+        `;
+
         emailjs
-          .send("service_6dliy09", "template_poprush_order", templateParams)
+          .send("service_6dliy09", "template_07fuuj3", templateParams, "jUV6LryvMRttsuvb2")
           .then(
             function (response) {
-              showToast("Order Sent Successfully!", "success");
+              // Show Success Modal
+              const modal = document.getElementById("successModal");
+              modal.classList.add("active");
+              
+              // Start progress bar
+              setTimeout(() => {
+                const bar = document.getElementById("progressLine");
+                if(bar) bar.style.width = "100%";
+              }, 50);
+
               clearCart();
+              
+              // Redirect after delay
               setTimeout(() => {
                 window.location.href = "receipt.html";
-              }, 1500);
+              }, 3000);
             },
             function (error) {
+              submitBtn.disabled = false;
+              submitBtn.classList.remove("btn-loading");
+              submitBtn.innerHTML = originalContent;
               showToast("Failed to send order. Please try again.", "error");
               console.error("EmailJS Error:", error);
             },
@@ -878,19 +941,25 @@
 
       renderCart();
     </script>
-    <script>
-      // Mobile Menu Toggle
-      (function() {
-        const menuToggle = document.getElementById('menuToggle');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (menuToggle && mobileMenu) {
-          menuToggle.addEventListener('click', () => {
-            const isHidden = mobileMenu.classList.toggle('hidden');
-            const icon = menuToggle.querySelector('.material-symbols-outlined');
-            if (icon) icon.textContent = isHidden ? 'menu' : 'close';
-          });
-        }
-      })();
-    </script>
+    <!-- Success Modal -->
+    <div id="successModal">
+      <div class="modal-content bg-surface-container-lowest p-8 rounded-3xl shadow-2xl max-w-md w-full text-center border border-outline-variant">
+        <div class="w-20 h-20 bg-secondary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+          <span class="material-symbols-outlined text-secondary text-5xl animate-bounce" style="font-variation-settings: 'FILL' 1">check_circle</span>
+        </div>
+        <h2 class="font-headline-md text-headline-md text-on-surface mb-3">Order Placed!</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+          Thank you for choosing PopRush! Your popcorn journey has officially begun.
+        </p>
+        <div class="flex flex-col gap-3">
+          <p class="font-label-sm text-label-sm text-on-surface-variant/60 uppercase tracking-widest">Redirecting to receipt...</p>
+          <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+            <div class="bg-secondary h-full transition-all duration-[3000ms] ease-linear w-0" id="progressLine"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/main.js"></script>
   </body>
 </html>

@@ -49,5 +49,14 @@ const track = document.getElementById('carouselTrack');
   // Initialize
   setTimeout(updateCenterCard, 100);
 
-
+  // Mobile Menu Toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      const icon = menuToggle.querySelector('.material-symbols-outlined');
+      if (icon) icon.textContent = isHidden ? 'menu' : 'close';
+    });
+  }
 });
