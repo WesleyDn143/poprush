@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Your Cart – POPRUSH</title>
+    <meta
+      name="description"
+      content="Review your POPRUSH popcorn order, choose sizes, and checkout."
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="../pictures/Poprush-logo.png" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <script src="../js/tailwind-config.js"></script>
+    <style>
+      .star-filled {
+        color: #e8c426;
+      }
+      .star-empty {
+        color: #d0c6ad;
+      }
+      .qty-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        border: 2px solid #d0c6ad;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .qty-btn:hover {
+        border-color: #bb0018;
+        color: #bb0018;
+      }
+      .size-btn {
+        padding: 6px 16px;
+        border-radius: 999px;
+        border: 2px solid #d0c6ad;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+        background: white;
+      }
+      .size-btn.active {
+        border-color: #bb0018;
+        background: #bb0018;
+        color: white;
+      }
+      .size-btn:hover:not(.active) {
+        border-color: #bb0018;
+        color: #bb0018;
+      }
+
+      /* Toast Notification Styles */
+      #toast-container {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        pointer-events: none;
+      }
+      .toast {
+        background: #322f2a;
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: flex;
+        items-center: center;
+        gap: 12px;
+        font-weight: 500;
+        animation: toast-in 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: all 0.3s;
+        pointer-events: auto;
+      }
+      .toast.success {
+        border-left: 4px solid #4caf50;
+      }
+      .toast.error {
+        border-left: 4px solid #bb0018;
+      }
+      .toast.info {
+        border-left: 4px solid #2196f3;
+      }
+
+      @keyframes toast-in {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .toast.fade-out {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    </style>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        // Initialize EmailJS with your Public Key
+        emailjs.init("jUV6LryvMRttsuvb2");
+      })();
+    </script>
+  </head>
+  <body
+    class="bg-background text-on-background font-body-md min-h-screen flex flex-col"
+  >
+    <div id="toast-container"></div>
+
+    <!-- TopNavBar -->
+    <header
+      class="bg-surface/90 backdrop-blur-md sticky top-0 w-full z-50 border-b border-outline-variant shadow-sm"
+    >
+      <div
+        class="flex justify-between items-center px-margin py-unit h-20 max-w-[1280px] mx-auto"
+      >
+        <a class="flex items-center" href="../index.html">
+          <img
+            src="../pictures/Poprush-logo.png"
+            alt="POPRUSH"
+            class="h-14 object-contain"
+          />
+          <span
+            class="font-display-lg text-3xl font-black tracking-tighter text-secondary ml-2"
+            >POPRUSH</span
+          >
+        </a>
+        <nav class="hidden md:flex gap-gutter items-center">
+          <a
+            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
+            href="../index.html"
+            >Home</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
+            href="flavors.html"
+            >Products</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
+            href="../index.html#about"
+            >About</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
+            href="contact.html"
+            >Contact</a
+          >
+        </nav>
+        <button
+          onclick="window.location.href = 'order.html'"
+          class="bg-secondary text-white font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95"
+        >
+          Order Now
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-grow max-w-[1280px] mx-auto w-full px-margin py-stack-md">
+      <div class="mb-stack-md">
+        <h1 class="font-headline-lg text-headline-lg text-on-surface">
+          Your Cart
+        </h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+          Review your items, pick your sizes, and checkout!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+        <!-- Left: Cart Items -->
+        <div class="lg:col-span-2 flex flex-col gap-gutter">
+          <!-- Empty state (hidden when items exist) -->
+          <div
+            id="cartEmpty"
+            class="hidden bg-surface-container-lowest rounded-xl p-stack-md text-center border border-outline-variant"
+          >
+            <span
+              class="material-symbols-outlined text-[64px] text-outline mb-4 block"
+              style="font-variation-settings: &quot;FILL&quot; 0"
+              >shopping_cart</span
+            >
+            <h2 class="font-headline-md text-headline-md text-on-surface mb-2">
+              Your cart is empty
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Looks like you haven't added anything yet.
+            </p>
+            <a
+              href="flavors.html"
+              class="inline-flex items-center gap-2 bg-secondary text-white font-label-md text-label-md px-8 py-3 rounded-full hover:scale-105 transition-transform active:scale-95"
+            >
+              Browse Flavors
+              <span class="material-symbols-outlined text-[18px]"
+                >arrow_forward</span
+              >
+            </a>
+          </div>
+
+          <!-- Cart items container (populated by JS) -->
+          <div id="cartItems" class="flex flex-col gap-4"></div>
+
+          <!-- Quick Add Flavors (So users can order more directly from cart) -->
+          <section
+            class="mt-2 mb-4 bg-surface-container-lowest rounded-xl p-4 border border-outline-variant shadow-sm"
+          >
+            <h3
+              class="font-headline-sm text-headline-sm text-on-surface mb-3 flex items-center gap-2"
+            >
+              <span
+                class="material-symbols-outlined text-secondary text-[20px]"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >add_circle</span
+              >
+              Want to add more flavors?
+            </h3>
+            <div class="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
+              <!-- Caramel -->
+              <button
+                type="button"
+                onclick="addToCart('Caramel Blast', 'Caramel Blast.jpg')"
+                class="flex-shrink-0 bg-surface border border-outline-variant rounded-lg p-2 flex items-center gap-3 hover:border-secondary transition-colors group text-left w-[200px]"
+              >
+                <img
+                  src="../pictures/Caramel Blast.jpg"
+                  class="w-12 h-12 rounded-md object-cover"
+                />
+                <div>
+                  <span
+                    class="block font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors"
+                    >Caramel Blast</span
+                  >
+                  <span
+                    class="block font-body-sm text-[11px] text-on-surface-variant"
+                    >₱89</span
+                  >
+                </div>
+                <span
+                  class="material-symbols-outlined ml-auto text-on-surface-variant group-hover:text-secondary transition-colors"
+                  >add</span
+                >
+              </button>
+              <!-- Cheddar -->
+              <button
+                type="button"
+                onclick="addToCart('White Cheddar Pop', 'White Cheddar.jpg')"
+                class="flex-shrink-0 bg-surface border border-outline-variant rounded-lg p-2 flex items-center gap-3 hover:border-secondary transition-colors group text-left w-[200px]"
+              >
+                <img
+                  src="../pictures/White Cheddar.jpg"
+                  class="w-12 h-12 rounded-md object-cover"
+                />
+                <div>
+                  <span
+                    class="block font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors"
+                    >White Cheddar</span
+                  >
+                  <span
+                    class="block font-body-sm text-[11px] text-on-surface-variant"
+                    >₱89</span
+                  >
+                </div>
+                <span
+                  class="material-symbols-outlined ml-auto text-on-surface-variant group-hover:text-secondary transition-colors"
+                  >add</span
+                >
+              </button>
+              <!-- Matcha -->
+              <button
+                type="button"
+                onclick="addToCart('Matcha Melt', 'Matcha Melt.jpg')"
+                class="flex-shrink-0 bg-surface border border-outline-variant rounded-lg p-2 flex items-center gap-3 hover:border-secondary transition-colors group text-left w-[200px]"
+              >
+                <img
+                  src="../pictures/Matcha Melt.jpg"
+                  class="w-12 h-12 rounded-md object-cover"
+                />
+                <div>
+                  <span
+                    class="block font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors"
+                    >Matcha Melt</span
+                  >
+                  <span
+                    class="block font-body-sm text-[11px] text-on-surface-variant"
+                    >₱89</span
+                  >
+                </div>
+                <span
+                  class="material-symbols-outlined ml-auto text-on-surface-variant group-hover:text-secondary transition-colors"
+                  >add</span
+                >
+              </button>
+              <!-- BBQ -->
+              <button
+                type="button"
+                onclick="addToCart('Spicy BBQ Crunch', 'Spicy BBQ.jpg')"
+                class="flex-shrink-0 bg-surface border border-outline-variant rounded-lg p-2 flex items-center gap-3 hover:border-secondary transition-colors group text-left w-[200px]"
+              >
+                <img
+                  src="../pictures/Spicy BBQ.jpg"
+                  class="w-12 h-12 rounded-md object-cover"
+                />
+                <div>
+                  <span
+                    class="block font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors"
+                    >Spicy BBQ</span
+                  >
+                  <span
+                    class="block font-body-sm text-[11px] text-on-surface-variant"
+                    >₱89</span
+                  >
+                </div>
+                <span
+                  class="material-symbols-outlined ml-auto text-on-surface-variant group-hover:text-secondary transition-colors"
+                  >add</span
+                >
+              </button>
+              <!-- Choco -->
+              <button
+                type="button"
+                onclick="addToCart('Choco Drizzle', 'Choco Drizzle.jpg')"
+                class="flex-shrink-0 bg-surface border border-outline-variant rounded-lg p-2 flex items-center gap-3 hover:border-secondary transition-colors group text-left w-[200px]"
+              >
+                <img
+                  src="../pictures/Choco Drizzle.jpg"
+                  class="w-12 h-12 rounded-md object-cover"
+                />
+                <div>
+                  <span
+                    class="block font-label-md text-label-md text-on-surface group-hover:text-secondary transition-colors"
+                    >Choco Drizzle</span
+                  >
+                  <span
+                    class="block font-body-sm text-[11px] text-on-surface-variant"
+                    >₱89</span
+                  >
+                </div>
+                <span
+                  class="material-symbols-outlined ml-auto text-on-surface-variant group-hover:text-secondary transition-colors"
+                  >add</span
+                >
+              </button>
+            </div>
+          </section>
+
+          <!-- Checkout Form (Combined from order.html) -->
+          <form
+            id="checkoutForm"
+            onsubmit="handleCheckout(event)"
+            class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm flex flex-col gap-6 mt-2 hidden"
+          >
+            <!-- Contact Info Section -->
+            <section>
+              <h2
+                class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2"
+              >
+                <span
+                  class="material-symbols-outlined text-secondary"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >person</span
+                >
+                Customer Details
+              </h2>
+              <div class="space-y-stack-sm">
+                <div>
+                  <label
+                    class="block font-label-md text-label-md text-on-surface-variant mb-unit"
+                    for="fullName"
+                    >Full Name</label
+                  >
+                  <input
+                    class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors"
+                    id="fullName"
+                    required=""
+                    type="text"
+                    placeholder="Jane Doe"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block font-label-md text-label-md text-on-surface-variant mb-unit"
+                    for="contactNumber"
+                    >Contact Number</label
+                  >
+                  <input
+                    class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors"
+                    id="contactNumber"
+                    required=""
+                    type="tel"
+                    placeholder="+63 900 000 0000"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block font-label-md text-label-md text-on-surface-variant mb-unit"
+                    for="address"
+                    >Delivery Address</label
+                  >
+                  <textarea
+                    class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors resize-none"
+                    id="address"
+                    required=""
+                    rows="3"
+                    placeholder="123 Popcorn Ave, Snack City"
+                  ></textarea>
+                </div>
+              </div>
+            </section>
+
+            <hr class="border-outline-variant" />
+
+            <!-- Payment Method Section -->
+            <section>
+              <h2
+                class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2"
+              >
+                <span
+                  class="material-symbols-outlined text-secondary"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >payments</span
+                >
+                Payment Method
+              </h2>
+              <div class="space-y-unit">
+                <label
+                  class="flex items-center gap-4 p-4 border-2 border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors has-[:checked]:border-secondary has-[:checked]:bg-secondary-fixed/10"
+                >
+                  <input
+                    checked=""
+                    class="w-5 h-5 text-secondary border-outline focus:ring-secondary"
+                    name="paymentMethod"
+                    type="radio"
+                    value="GCash"
+                  />
+                  <span
+                    class="font-label-md text-label-md text-on-surface flex-grow"
+                    >GCash</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-on-surface-variant"
+                    >qr_code_scanner</span
+                  >
+                </label>
+                <label
+                  class="flex items-center gap-4 p-4 border-2 border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors has-[:checked]:border-secondary has-[:checked]:bg-secondary-fixed/10"
+                >
+                  <input
+                    class="w-5 h-5 text-secondary border-outline focus:ring-secondary"
+                    name="paymentMethod"
+                    type="radio"
+                    value="COD"
+                  />
+                  <span
+                    class="font-label-md text-label-md text-on-surface flex-grow"
+                    >Cash on Delivery</span
+                  >
+                  <span
+                    class="material-symbols-outlined text-on-surface-variant"
+                    >local_shipping</span
+                  >
+                </label>
+              </div>
+            </section>
+
+            <!-- Hidden submit button triggered by the sidebar button -->
+            <button type="submit" id="realSubmitBtn" class="hidden"></button>
+          </form>
+
+          <!-- Reviews Section -->
+          <section class="mt-4">
+            <h2
+              class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2"
+            >
+              <span
+                class="material-symbols-outlined text-primary-fixed-dim"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >star</span
+              >
+              What Customers Say
+            </h2>
+
+            <!-- Review Cards -->
+            <div class="flex flex-col gap-4">
+              <div
+                class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white font-bold font-label-md"
+                  >
+                    S
+                  </div>
+                  <div>
+                    <p class="font-label-md text-label-md text-on-surface">
+                      Shandy
+                    </p>
+                    <div class="flex gap-0.5 mt-0.5">
+                      <span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span>
+                    </div>
+                  </div>
+                  <span
+                    class="ml-auto font-label-md text-[11px] text-on-surface-variant bg-surface-container px-3 py-1 rounded-full"
+                    >Caramel Blast</span
+                  >
+                </div>
+                <p
+                  class="font-body-md text-body-md text-on-surface-variant italic"
+                >
+                  "Super lami and crunchy! Dili ko ma-uhaw after eating. Best
+                  popcorn ever!"
+                </p>
+              </div>
+
+              <div
+                class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed font-bold font-label-md"
+                  >
+                    H
+                  </div>
+                  <div>
+                    <p class="font-label-md text-label-md text-on-surface">
+                      Harah
+                    </p>
+                    <div class="flex gap-0.5 mt-0.5">
+                      <span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-empty text-lg">★</span
+                      ><span class="star-empty text-lg">★</span>
+                    </div>
+                  </div>
+                  <span
+                    class="ml-auto font-label-md text-[11px] text-on-surface-variant bg-surface-container px-3 py-1 rounded-full"
+                    >Spicy BBQ Crunch</span
+                  >
+                </div>
+                <p
+                  class="font-body-md text-body-md text-on-surface-variant italic"
+                >
+                  "Okay lang. Gusto ko mas spicy pa siya pero sakto ra kaayo ang
+                  flavor."
+                </p>
+              </div>
+
+              <div
+                class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-bold font-label-md"
+                  >
+                    M
+                  </div>
+                  <div>
+                    <p class="font-label-md text-label-md text-on-surface">
+                      Mhay
+                    </p>
+                    <div class="flex gap-0.5 mt-0.5">
+                      <span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-filled text-lg">★</span
+                      ><span class="star-empty text-lg">★</span>
+                    </div>
+                  </div>
+                  <span
+                    class="ml-auto font-label-md text-[11px] text-on-surface-variant bg-surface-container px-3 py-1 rounded-full"
+                    >Choco Drizzle</span
+                  >
+                </div>
+                <p
+                  class="font-body-md text-body-md text-on-surface-variant italic"
+                >
+                  "Maayo kaayo ang choco drizzle! Bag-o ra ko nakatilaw ug
+                  ganahan kaayo ko."
+                </p>
+              </div>
+
+              <!-- Leave a Review -->
+              <div
+                class="bg-surface-container rounded-xl p-6 border-2 border-dashed border-outline-variant"
+              >
+                <h3
+                  class="font-headline-md text-headline-md text-on-surface mb-4"
+                >
+                  Leave a Review
+                </h3>
+                <div class="flex gap-2 mb-4" id="starRating">
+                  <span
+                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
+                    data-val="1"
+                    >★</span
+                  >
+                  <span
+                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
+                    data-val="2"
+                    >★</span
+                  >
+                  <span
+                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
+                    data-val="3"
+                    >★</span
+                  >
+                  <span
+                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
+                    data-val="4"
+                    >★</span
+                  >
+                  <span
+                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
+                    data-val="5"
+                    >★</span
+                  >
+                </div>
+                <input
+                  id="reviewName"
+                  type="text"
+                  placeholder="Your name"
+                  class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors mb-3"
+                />
+                <textarea
+                  id="reviewText"
+                  rows="3"
+                  placeholder="Share your experience..."
+                  class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors resize-none mb-3"
+                ></textarea>
+                <button
+                  onclick="submitReview()"
+                  class="bg-secondary text-white font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 active:scale-95 transition-transform flex items-center gap-2"
+                >
+                  Submit Review
+                  <span class="material-symbols-outlined text-[18px]"
+                    >send</span
+                  >
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right: Order Summary -->
+        <aside class="lg:col-span-1">
+          <div
+            class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 sticky top-28"
+          >
+            <h2
+              class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2"
+            >
+              <span
+                class="material-symbols-outlined text-secondary"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >receipt_long</span
+              >
+              Order Summary
+            </h2>
+            <div
+              id="summaryLines"
+              class="flex flex-col gap-3 mb-4 min-h-[60px]"
+            >
+              <p class="font-body-md text-body-md text-on-surface-variant">
+                No items yet.
+              </p>
+            </div>
+            <div class="border-t border-outline-variant pt-4 mb-4">
+              <div class="flex justify-between items-center">
+                <span class="font-body-lg text-body-lg text-on-surface"
+                  >Subtotal</span
+                >
+                <span
+                  class="font-headline-md text-headline-md text-on-surface"
+                  id="subtotal"
+                  >₱0</span
+                >
+              </div>
+              <div class="flex justify-between items-center mt-1">
+                <span class="font-body-md text-body-md text-on-surface-variant"
+                  >Delivery</span
+                >
+                <span class="font-body-md text-body-md text-on-surface-variant"
+                  >Calculated at checkout</span
+                >
+              </div>
+            </div>
+            <button
+              id="checkoutBtn"
+              onclick="document.getElementById('realSubmitBtn').click()"
+              class="w-full bg-secondary text-white font-label-md text-label-md uppercase tracking-wider py-4 rounded-full hover:scale-[1.02] active:scale-[0.98] transition-transform shadow-lg shadow-secondary/20 flex justify-center items-center gap-2 mb-3 hidden"
+            >
+              Submit Order
+              <span
+                class="material-symbols-outlined"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >check_circle</span
+              >
+            </button>
+            <button
+              onclick="clearCart()"
+              class="w-full border-2 border-outline-variant text-on-surface-variant font-label-md text-label-md py-3 rounded-full hover:border-secondary hover:text-secondary transition-colors flex justify-center items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+              Clear Cart
+            </button>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-inverse-surface w-full rounded-t-lg border-t-4 border-primary-fixed mt-stack-lg"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-start px-margin py-stack-md max-w-[1280px] mx-auto gap-gutter"
+      >
+        <div class="flex flex-col gap-4">
+          <a class="flex items-center" href="../index.html">
+            <img
+              src="../pictures/Poprush-logo.png"
+              alt="POPRUSH"
+              class="h-10 object-contain"
+            />
+            <span
+              class="font-display-lg text-xl font-black tracking-tighter text-primary-fixed ml-2"
+              >POPRUSH</span
+            >
+          </a>
+          <p class="font-body-md text-body-md text-tertiary-fixed-dim">
+            Â© 2024 POPRUSH Popcorn Co. Every Pop Hits Different.
+          </p>
+        </div>
+        <nav class="flex flex-col md:flex-row gap-6 md:gap-gutter">
+          <a
+            class="font-body-md text-body-md text-tertiary-fixed-dim hover:text-primary-fixed transition-colors"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="font-body-md text-body-md text-tertiary-fixed-dim hover:text-primary-fixed transition-colors"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="font-body-md text-body-md text-tertiary-fixed-dim hover:text-primary-fixed transition-colors"
+            href="#"
+            >Shipping Info</a
+          >
+          <a
+            class="font-body-md text-body-md text-tertiary-fixed-dim hover:text-primary-fixed transition-colors"
+            href="bulk.html"
+            >Wholesale</a
+          >
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      const PRICES = { Small: 69, Regular: 89, Large: 129 };
+
+      function getCart() {
+        return JSON.parse(localStorage.getItem("poprushCart") || "[]");
+      }
+      function saveCart(cart) {
+        localStorage.setItem("poprushCart", JSON.stringify(cart));
+      }
+
+      function renderCart() {
+        const cart = getCart();
+        const itemsEl = document.getElementById("cartItems");
+        const emptyEl = document.getElementById("cartEmpty");
+        const summaryEl = document.getElementById("summaryLines");
+        const subtotalEl = document.getElementById("subtotal");
+
+        itemsEl.innerHTML = "";
+        summaryEl.innerHTML = "";
+
+        if (cart.length === 0) {
+          emptyEl.classList.remove("hidden");
+          document.getElementById("checkoutForm").classList.add("hidden");
+          document.getElementById("checkoutBtn").classList.add("hidden");
+          summaryEl.innerHTML =
+            '<p class="font-body-md text-body-md text-on-surface-variant">No items yet.</p>';
+          subtotalEl.textContent = "₱0";
+          return;
+        }
+
+        emptyEl.classList.add("hidden");
+        document.getElementById("checkoutForm").classList.remove("hidden");
+        document.getElementById("checkoutBtn").classList.remove("hidden");
+        let total = 0;
+
+        cart.forEach((item, idx) => {
+          const price = PRICES[item.size] || 89;
+          const lineTotal = price * item.qty;
+          total += lineTotal;
+
+          itemsEl.innerHTML += `
+      <div class="bg-surface-container-lowest rounded-xl p-5 border border-outline-variant flex gap-4 items-start shadow-sm">
+        <img src="../pictures/${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg shrink-0"/>
+        <div class="flex-grow">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="font-headline-md text-headline-md text-on-surface">${item.name}</h3>
+              <div class="flex gap-2 mt-2">
+                ${Object.keys(PRICES)
+                  .map(
+                    (s) =>
+                      `<button onclick="changeSize(${idx},'${s}')" class="size-btn ${item.size === s ? "active" : ""}">${s}</button>`,
+                  )
+                  .join("")}
+              </div>
+            </div>
+            <button onclick="removeItem(${idx})" class="text-on-surface-variant hover:text-secondary transition-colors ml-2">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+          <div class="flex justify-between items-center mt-3">
+            <div class="flex items-center gap-3">
+              <button class="qty-btn" onclick="changeQty(${idx},-1)">-</button>
+              <span class="font-label-md text-label-md text-on-surface w-6 text-center">${item.qty}</span>
+              <button class="qty-btn" onclick="changeQty(${idx},1)">+</button>
+            </div>
+            <span class="font-headline-md text-headline-md text-secondary">₱${lineTotal}</span>
+          </div>
+        </div>
+      </div>`;
+
+          summaryEl.innerHTML += `
+      <div class="flex justify-between items-center">
+        <span class="font-body-md text-body-md text-on-surface">${item.name} <span class="text-on-surface-variant text-[12px]">(${item.size} x${item.qty})</span></span>
+        <span class="font-label-md text-label-md text-on-surface">₱${lineTotal}</span>
+      </div>`;
+        });
+
+        subtotalEl.textContent = `₱${total}`;
+      }
+
+      function changeQty(idx, delta) {
+        const cart = getCart();
+        cart[idx].qty = Math.max(1, cart[idx].qty + delta);
+        saveCart(cart);
+        renderCart();
+      }
+
+      function changeSize(idx, size) {
+        const cart = getCart();
+        cart[idx].size = size;
+        saveCart(cart);
+        renderCart();
+      }
+
+      function removeItem(idx) {
+        const cart = getCart();
+        cart.splice(idx, 1);
+        saveCart(cart);
+        renderCart();
+      }
+
+      function clearCart() {
+        saveCart([]);
+        renderCart();
+      }
+
+      // Star rating interaction
+      let selectedStars = 0;
+      document.querySelectorAll(".star-rate").forEach((star) => {
+        star.addEventListener("mouseover", () => {
+          document.querySelectorAll(".star-rate").forEach((s) => {
+            s.classList.toggle(
+              "star-filled",
+              s.dataset.val <= star.dataset.val,
+            );
+            s.classList.toggle("star-empty", s.dataset.val > star.dataset.val);
+          });
+        });
+        star.addEventListener("mouseleave", () => {
+          document.querySelectorAll(".star-rate").forEach((s) => {
+            s.classList.toggle("star-filled", s.dataset.val <= selectedStars);
+            s.classList.toggle("star-empty", s.dataset.val > selectedStars);
+          });
+        });
+        star.addEventListener("click", () => {
+          selectedStars = parseInt(star.dataset.val);
+        });
+      });
+
+      function showToast(message, type = "info") {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+
+        const icon =
+          type === "success"
+            ? "check_circle"
+            : type === "error"
+              ? "error"
+              : "info";
+
+        toast.innerHTML = `
+    <span class="material-symbols-outlined">${icon}</span>
+    <span>${message}</span>
+  `;
+
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.add("fade-out");
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      function submitReview() {
+        const name = document.getElementById("reviewName").value.trim();
+        const text = document.getElementById("reviewText").value.trim();
+        if (!name || !text || !selectedStars) {
+          showToast("Please fill in your name, rating, and review!", "error");
+          return;
+        }
+
+        showToast(
+          `Thanks, ${name}! Your review has been submitted. ★`,
+          "success",
+        );
+
+        document.getElementById("reviewName").value = "";
+        document.getElementById("reviewText").value = "";
+        selectedStars = 0;
+        document.querySelectorAll(".star-rate").forEach((s) => {
+          s.classList.remove("star-filled");
+          s.classList.add("star-empty");
+        });
+      }
+
+      function handleCheckout(e) {
+        e.preventDefault();
+        const cart = getCart();
+        if (cart.length === 0) {
+          showToast("Your cart is empty!", "error");
+          return;
+        }
+
+        const name = document.getElementById("name").value;
+        const phone = document.getElementById("phone").value;
+        const address = document.getElementById("address").value;
+
+        const orderDetails = cart
+          .map((item) => `${item.name} (${item.size} x${item.qty})`)
+          .join(", ");
+        const total = cart.reduce(
+          (sum, item) => sum + PRICES[item.size] * item.qty,
+          0,
+        );
+
+        const templateParams = {
+          from_name: name,
+          phone_number: phone,
+          delivery_address: address,
+          order_items: orderDetails,
+          total_price: `₱${total}`,
+          to_email: "poprush.ph@gmail.com",
+        };
+
+        showToast("Sending your order...", "info");
+
+        // These should be replaced by the user with their actual EmailJS credentials
+        emailjs
+          .send("service_6dliy09", "template_poprush_order", templateParams)
+          .then(
+            function (response) {
+              showToast("Order Sent Successfully!", "success");
+              clearCart();
+              setTimeout(() => {
+                window.location.href = "../index.html";
+              }, 2000);
+            },
+            function (error) {
+              showToast("Failed to send order. Please try again.", "error");
+              console.error("EmailJS Error:", error);
+            },
+          );
+      }
+
+      function addToCart(name, image) {
+        let cart = getCart();
+        const ex = cart.find((i) => i.name === name);
+        if (ex) {
+          ex.qty += 1;
+        } else {
+          cart.push({ name, image, size: "Regular", qty: 1 });
+        }
+        saveCart(cart);
+        renderCart();
+
+        showToast(`${name} added to cart!`, "success");
+      }
+
+      renderCart();
+    </script>
+  </body>
+</html>
