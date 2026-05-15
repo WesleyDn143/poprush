@@ -762,8 +762,14 @@
             submitBtn.disabled = false;
             submitBtn.classList.remove("btn-loading");
             submitBtn.innerHTML = originalContent;
-            showToast("Failed to send order. Please try again.", "error");
+            
             console.error("EmailJS Error:", error);
+            
+            if (error.status === 0) {
+              showToast("Network error. Please check your internet or disable AdBlockers.", "error");
+            } else {
+              showToast("Failed to send order (Error " + error.status + "). Please try again.", "error");
+            }
           },
         );
     }

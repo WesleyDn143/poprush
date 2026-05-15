@@ -28,7 +28,7 @@ body {
 }
 .login-input {
   width: 100%;
-  padding: 14px 16px 14px 44px;
+  padding: 14px 16px 14px 44px !important;
   border: 2px solid #d0c6ad;
   border-radius: 12px;
   font-size: 15px;
