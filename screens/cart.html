@@ -132,51 +132,42 @@
     <div id="toast-container"></div>
 
     <!-- TopNavBar -->
-    <header
-      class="bg-surface/90 backdrop-blur-md sticky top-0 w-full z-50 border-b border-outline-variant shadow-sm"
-    >
-      <div
-        class="flex justify-between items-center px-margin py-unit h-20 max-w-[1280px] mx-auto"
-      >
-        <a class="flex items-center" href="../index.html">
-          <img
-            src="../pictures/Poprush-logo.png"
-            alt="POPRUSH"
-            class="h-14 object-contain"
-          />
-          <span
-            class="font-display-lg text-3xl font-black tracking-tighter text-secondary ml-2"
-            >POPRUSH</span
-          >
+    <header class="bg-surface/90 backdrop-blur-md sticky top-0 w-full z-50 border-b border-outline-variant shadow-sm">
+      <div class="flex justify-between items-center px-4 md:px-margin h-20 max-w-container-width mx-auto relative">
+        <!-- Logo -->
+        <a class="flex items-center shrink-0" href="../index.html">
+          <img src="../pictures/Poprush-logo.png" alt="POPRUSH" class="h-12 md:h-14 object-contain" />
+          <span class="font-display-lg text-2xl md:text-3xl font-black tracking-tighter text-secondary ml-2">POPRUSH</span>
         </a>
-        <nav class="hidden md:flex gap-gutter items-center">
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-            href="../index.html"
-            >Home</a
-          >
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-            href="flavors.html"
-            >Products</a
-          >
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-            href="../index.html#about"
-            >About</a
-          >
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors font-label-md text-label-md"
-            href="contact.html"
-            >Contact</a
-          >
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex gap-8 absolute left-1/2 -translate-x-1/2 items-center font-label-md text-label-md">
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="../index.html">Home</a>
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="flavors.html">Products</a>
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="about.html">About</a>
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="contact.html">Contact</a>
         </nav>
-        <button
-          onclick="window.location.href = 'order.html'"
-          class="bg-secondary text-white font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95"
-        >
-          Order Now
-        </button>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2">
+          <button onclick="window.location.href = 'cart.html'" class="hidden md:block bg-secondary text-white font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95 shadow-lg shadow-secondary/20">
+            Order Now
+          </button>
+          
+          <button id="menuToggle" class="md:hidden p-2 text-on-surface hover:bg-surface-container rounded-full transition-all" aria-label="Menu">
+            <span class="material-symbols-outlined text-[30px]">menu</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant z-40 p-6 flex flex-col gap-5 shadow-2xl transition-all duration-300 transform origin-top">
+         <a class="font-headline-md text-headline-md text-on-surface" href="../index.html">Home</a>
+         <a class="font-headline-md text-headline-md text-on-surface" href="flavors.html">Products</a>
+         <a class="font-headline-md text-headline-md text-on-surface" href="about.html">About</a>
+         <a class="font-headline-md text-headline-md text-on-surface" href="contact.html">Contact</a>
+         <hr class="border-outline-variant my-2">
+         <button onclick="window.location.href = 'cart.html'" class="bg-secondary text-white w-full py-4 rounded-xl font-headline-md text-headline-md shadow-lg shadow-secondary/20">Order Now</button>
       </div>
     </header>
 
@@ -489,196 +480,19 @@
             <button type="submit" id="realSubmitBtn" class="hidden"></button>
           </form>
 
-          <!-- Reviews Section -->
-          <section class="mt-4">
-            <h2
-              class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2"
-            >
-              <span
-                class="material-symbols-outlined text-primary-fixed-dim"
-                style="font-variation-settings: &quot;FILL&quot; 1"
-                >star</span
-              >
-              What Customers Say
-            </h2>
-
-            <!-- Review Cards -->
-            <div class="flex flex-col gap-4">
-              <div
-                class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm"
-              >
-                <div class="flex items-center gap-3 mb-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-white font-bold font-label-md"
-                  >
-                    S
-                  </div>
-                  <div>
-                    <p class="font-label-md text-label-md text-on-surface">
-                      Shandy
-                    </p>
-                    <div class="flex gap-0.5 mt-0.5">
-                      <span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span>
-                    </div>
-                  </div>
-                  <span
-                    class="ml-auto font-label-md text-[11px] text-on-surface-variant bg-surface-container px-3 py-1 rounded-full"
-                    >Caramel Blast</span
-                  >
-                </div>
-                <p
-                  class="font-body-md text-body-md text-on-surface-variant italic"
-                >
-                  "Super lami and crunchy! Dili ko ma-uhaw after eating. Best
-                  popcorn ever!"
-                </p>
-              </div>
-
-              <div
-                class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm"
-              >
-                <div class="flex items-center gap-3 mb-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-primary-fixed-dim flex items-center justify-center text-on-primary-fixed font-bold font-label-md"
-                  >
-                    H
-                  </div>
-                  <div>
-                    <p class="font-label-md text-label-md text-on-surface">
-                      Harah
-                    </p>
-                    <div class="flex gap-0.5 mt-0.5">
-                      <span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-empty text-lg">★</span
-                      ><span class="star-empty text-lg">★</span>
-                    </div>
-                  </div>
-                  <span
-                    class="ml-auto font-label-md text-[11px] text-on-surface-variant bg-surface-container px-3 py-1 rounded-full"
-                    >Spicy BBQ Crunch</span
-                  >
-                </div>
-                <p
-                  class="font-body-md text-body-md text-on-surface-variant italic"
-                >
-                  "Okay lang. Gusto ko mas spicy pa siya pero sakto ra kaayo ang
-                  flavor."
-                </p>
-              </div>
-
-              <div
-                class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm"
-              >
-                <div class="flex items-center gap-3 mb-3">
-                  <div
-                    class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface font-bold font-label-md"
-                  >
-                    M
-                  </div>
-                  <div>
-                    <p class="font-label-md text-label-md text-on-surface">
-                      Mhay
-                    </p>
-                    <div class="flex gap-0.5 mt-0.5">
-                      <span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-filled text-lg">★</span
-                      ><span class="star-empty text-lg">★</span>
-                    </div>
-                  </div>
-                  <span
-                    class="ml-auto font-label-md text-[11px] text-on-surface-variant bg-surface-container px-3 py-1 rounded-full"
-                    >Choco Drizzle</span
-                  >
-                </div>
-                <p
-                  class="font-body-md text-body-md text-on-surface-variant italic"
-                >
-                  "Maayo kaayo ang choco drizzle! Bag-o ra ko nakatilaw ug
-                  ganahan kaayo ko."
-                </p>
-              </div>
-
-              <!-- Leave a Review -->
-              <div
-                class="bg-surface-container rounded-xl p-6 border-2 border-dashed border-outline-variant"
-              >
-                <h3
-                  class="font-headline-md text-headline-md text-on-surface mb-4"
-                >
-                  Leave a Review
-                </h3>
-                <div class="flex gap-2 mb-4" id="starRating">
-                  <span
-                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
-                    data-val="1"
-                    >★</span
-                  >
-                  <span
-                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
-                    data-val="2"
-                    >★</span
-                  >
-                  <span
-                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
-                    data-val="3"
-                    >★</span
-                  >
-                  <span
-                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
-                    data-val="4"
-                    >★</span
-                  >
-                  <span
-                    class="star-rate text-3xl cursor-pointer star-empty transition-colors"
-                    data-val="5"
-                    >★</span
-                  >
-                </div>
-                <input
-                  id="reviewName"
-                  type="text"
-                  placeholder="Your name"
-                  class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors mb-3"
-                />
-                <textarea
-                  id="reviewText"
-                  rows="3"
-                  placeholder="Share your experience..."
-                  class="w-full bg-surface rounded-lg border-2 border-outline-variant px-4 py-3 font-body-md text-body-md text-on-surface focus:border-secondary focus:ring-0 focus:outline-none transition-colors resize-none mb-3"
-                ></textarea>
-                <button
-                  onclick="submitReview()"
-                  class="bg-secondary text-white font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 active:scale-95 transition-transform flex items-center gap-2"
-                >
-                  Submit Review
-                  <span class="material-symbols-outlined text-[18px]"
-                    >send</span
-                  >
-                </button>
-              </div>
-            </div>
-          </section>
         </div>
 
-        <!-- Right: Order Summary -->
-        <aside class="lg:col-span-1">
+        <!-- Right: Order Summary & Reviews -->
+        <aside class="lg:col-span-1 flex flex-col gap-6">
           <div
-            class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 sticky top-28"
+            class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 lg:sticky lg:top-28"
           >
             <h2
               class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2"
             >
               <span
                 class="material-symbols-outlined text-secondary"
-                style="font-variation-settings: &quot;FILL&quot; 1"
+                style="font-variation-settings: 'FILL' 1"
                 >receipt_long</span
               >
               Order Summary
@@ -702,14 +516,6 @@
                   >₱0</span
                 >
               </div>
-              <div class="flex justify-between items-center mt-1">
-                <span class="font-body-md text-body-md text-on-surface-variant"
-                  >Delivery</span
-                >
-                <span class="font-body-md text-body-md text-on-surface-variant"
-                  >Calculated at checkout</span
-                >
-              </div>
             </div>
             <button
               id="checkoutBtn"
@@ -719,7 +525,7 @@
               Submit Order
               <span
                 class="material-symbols-outlined"
-                style="font-variation-settings: &quot;FILL&quot; 1"
+                style="font-variation-settings: 'FILL' 1"
                 >check_circle</span
               >
             </button>
@@ -731,6 +537,31 @@
               Clear Cart
             </button>
           </div>
+
+          <!-- Reviews Section -->
+          <section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
+            <h2
+              class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2"
+            >
+              <span
+                class="material-symbols-outlined text-secondary"
+                style="font-variation-settings: 'FILL' 1"
+                >star</span
+              >
+              What Customers Say
+            </h2>
+
+            <div class="flex flex-col gap-4">
+              <div class="bg-surface rounded-xl p-4 border border-outline-variant">
+                <p class="text-xs text-on-surface-variant italic">"Super lami and crunchy! Best popcorn ever!"</p>
+                <p class="font-label-md text-[10px] text-on-surface mt-2">- Shandy</p>
+              </div>
+              <div class="bg-surface rounded-xl p-4 border border-outline-variant">
+                <p class="text-xs text-on-surface-variant italic">"Okay lang. Gusto ko mas spicy pa siya."</p>
+                <p class="font-label-md text-[10px] text-on-surface mt-2">- Harah</p>
+              </div>
+            </div>
+          </section>
         </aside>
       </div>
     </main>
@@ -755,7 +586,7 @@
             >
           </a>
           <p class="font-body-md text-body-md text-tertiary-fixed-dim">
-            Â© 2024 POPRUSH Popcorn Co. Every Pop Hits Different.
+            © 2024 POPRUSH Popcorn Co. Every Pop Hits Different.
           </p>
         </div>
         <nav class="flex flex-col md:flex-row gap-6 md:gap-gutter">
@@ -1024,6 +855,20 @@
       }
 
       renderCart();
+    </script>
+    <script>
+      // Mobile Menu Toggle
+      (function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('.material-symbols-outlined');
+            if (icon) icon.textContent = isHidden ? 'menu' : 'close';
+          });
+        }
+      })();
     </script>
   </body>
 </html>

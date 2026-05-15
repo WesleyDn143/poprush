@@ -27,54 +27,44 @@
     class="bg-background text-on-background antialiased font-body-md text-body-md min-h-screen flex flex-col"
   >
     <!-- TopNavBar -->
-    <nav
-      class="bg-surface/90 backdrop-blur-md dark:bg-inverse-surface/90 sticky top-0 w-full z-50 border-b border-outline-variant dark:border-outline shadow-sm text-primary dark:text-primary-fixed-dim"
-    >
-      <div
-        class="flex justify-between items-center px-margin py-unit h-20 max-w-container-width mx-auto"
-      >
-        <a class="flex items-center" href="../index.html"
-          ><img
-            src="../pictures/Poprush-logo.png"
-            alt="POPRUSH"
-            class="h-14 object-contain"
-          /><span
-            class="font-display-lg text-3xl font-black tracking-tighter text-secondary dark:text-secondary-fixed-dim ml-2"
-            >POPRUSH</span
-          ></a
-        >
-        <div
-          class="hidden md:flex gap-gutter font-label-md text-label-md items-center"
-        >
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors duration-200"
-            href="../index.html"
-            >Home</a
-          >
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors duration-200"
-            href="flavors.html"
-            >Products</a
-          >
-          <a
-            class="text-on-surface-variant hover:text-secondary transition-colors duration-200"
-            href="../index.html#about"
-            >About</a
-          >
-          <a
-            class="text-secondary font-bold border-b-2 border-secondary pb-1"
-            href="contact.html"
-            >Contact</a
-          >
+    <header class="bg-surface/90 backdrop-blur-md sticky top-0 w-full z-50 border-b border-outline-variant shadow-sm">
+      <div class="flex justify-between items-center px-4 md:px-margin h-20 max-w-container-width mx-auto relative">
+        <!-- Logo -->
+        <a class="flex items-center shrink-0" href="../index.html">
+          <img src="../pictures/Poprush-logo.png" alt="POPRUSH" class="h-12 md:h-14 object-contain" />
+          <span class="font-display-lg text-2xl md:text-3xl font-black tracking-tighter text-secondary ml-2">POPRUSH</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex gap-8 absolute left-1/2 -translate-x-1/2 items-center font-label-md text-label-md">
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="../index.html">Home</a>
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="flavors.html">Products</a>
+          <a class="text-on-surface-variant hover:text-secondary transition-all" href="about.html">About</a>
+          <a class="text-secondary font-bold border-b-2 border-secondary pb-1 transition-all" href="contact.html">Contact</a>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2">
+          <button onclick="window.location.href = 'cart.html'" class="hidden md:block bg-secondary text-white font-label-md text-label-md px-6 py-3 rounded-full hover:scale-105 transition-transform active:scale-95 shadow-lg shadow-secondary/20">
+            Order Now
+          </button>
+          
+          <button id="menuToggle" class="md:hidden p-2 text-on-surface hover:bg-surface-container rounded-full transition-all" aria-label="Menu">
+            <span class="material-symbols-outlined text-[30px]">menu</span>
+          </button>
         </div>
-        <button
-          onclick="window.location.href = 'cart.html'"
-          class="bg-secondary text-white px-6 py-3 rounded-full font-label-md text-label-md hover:scale-105 transition-transform duration-200 active:scale-95 border-2 border-transparent"
-        >
-          Order Now
-        </button>
       </div>
-    </nav>
+
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobileMenu" class="hidden md:hidden absolute top-20 left-0 w-full bg-surface border-b border-outline-variant z-40 p-6 flex flex-col gap-5 shadow-2xl transition-all duration-300 transform origin-top">
+         <a class="font-headline-md text-headline-md text-on-surface" href="../index.html">Home</a>
+         <a class="font-headline-md text-headline-md text-on-surface" href="flavors.html">Products</a>
+         <a class="font-headline-md text-headline-md text-on-surface" href="about.html">About</a>
+         <a class="font-headline-md text-headline-md text-secondary" href="contact.html">Contact</a>
+         <hr class="border-outline-variant my-2">
+         <button onclick="window.location.href = 'cart.html'" class="bg-secondary text-white w-full py-4 rounded-xl font-headline-md text-headline-md shadow-lg shadow-secondary/20">Order Now</button>
+      </div>
+    </header>
     <!-- Main Content -->
     <main
       class="flex-grow flex flex-col items-center justify-center px-margin py-unit max-w-container-width mx-auto w-full gap-stack-lg relative"
@@ -160,7 +150,7 @@
         />
         <div class="absolute inset-0 flex items-center justify-center">
           <h2
-            class="font-headline-lg text-headline-lg text-white-fixed bg-primary-fixed/90 px-8 py-4 rounded-full backdrop-blur-sm border-2 border-on-primary-fixed shadow-[8px_8px_0px_rgba(0,0,0,1)] transform -rotate-2"
+            class="font-headline-lg text-2xl md:text-headline-lg text-white-fixed bg-primary-fixed/90 px-6 md:px-8 py-3 md:py-4 rounded-full backdrop-blur-sm border-2 border-on-primary-fixed shadow-[8px_8px_0px_rgba(0,0,0,1)] transform -rotate-2 whitespace-nowrap"
           >
             Every Pop Hits Different.
           </h2>
@@ -254,5 +244,19 @@
       </div>
     </footer>
     <script src="../js/main.js"></script>
+    <script>
+      // Mobile Menu Toggle
+      (function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener('click', () => {
+            const isHidden = mobileMenu.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('.material-symbols-outlined');
+            if (icon) icon.textContent = isHidden ? 'menu' : 'close';
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
