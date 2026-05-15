@@ -397,6 +397,86 @@
           </article>
         </div>
       </section>
+
+      <!-- Review Section -->
+      <section class="bg-surface-container py-stack-lg px-margin overflow-hidden relative" id="reviews">
+        <div class="max-w-container-width mx-auto">
+          <div class="text-center mb-stack-md">
+            <h2 class="font-display-lg text-display-lg text-secondary uppercase mb-4">What Customers Say</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">Real reviews from our popcorn lovers.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+            <!-- Review Cards -->
+            <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Review 1 -->
+              <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center gap-1 mb-3">
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface italic mb-4">"Super lami and crunchy! Best popcorn ever! I love the Caramel Blast, it's so rich and buttery."</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary font-bold text-lg">S</div>
+                  <div>
+                    <p class="font-label-md text-label-md text-on-surface">Shandy</p>
+                    <p class="text-[10px] text-on-surface-variant uppercase">Verified Snacker</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Review 2 -->
+              <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex items-center gap-1 mb-3">
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  <span class="material-symbols-outlined text-outline text-[20px]">star</span>
+                </div>
+                <p class="font-body-md text-body-md text-on-surface italic mb-4">"Okay lang. Gusto ko mas spicy pa siya. The BBQ is good but I want more heat!"</p>
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-tertiary font-bold text-lg">H</div>
+                  <div>
+                    <p class="font-label-md text-label-md text-on-surface">Harah</p>
+                    <p class="text-[10px] text-on-surface-variant uppercase">Spicy Lover</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Review Form -->
+            <div class="lg:col-span-1 bg-secondary text-white p-8 rounded-3xl border-2 border-secondary shadow-xl shadow-secondary/20">
+              <h3 class="font-headline-md text-headline-md mb-2">Leave a Review</h3>
+              <p class="text-sm opacity-90 mb-6">Tell us what you think of your favorite pops!</p>
+              <form class="space-y-4" onsubmit="handleReviewSubmit(event)">
+                <div>
+                  <label class="block text-[11px] font-bold uppercase mb-1 opacity-80">Your Name</label>
+                  <input type="text" id="revName" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/40 focus:bg-white/20 focus:outline-none transition-all border-none ring-1 ring-white/30">
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase mb-1 opacity-80">Rating</label>
+                  <div class="flex gap-1" id="starRating">
+                    <button type="button" onclick="setStarRating(1)" class="star-btn material-symbols-outlined text-white/40 hover:text-white transition-colors">star</button>
+                    <button type="button" onclick="setStarRating(2)" class="star-btn material-symbols-outlined text-white/40 hover:text-white transition-colors">star</button>
+                    <button type="button" onclick="setStarRating(3)" class="star-btn material-symbols-outlined text-white/40 hover:text-white transition-colors">star</button>
+                    <button type="button" onclick="setStarRating(4)" class="star-btn material-symbols-outlined text-white/40 hover:text-white transition-colors">star</button>
+                    <button type="button" onclick="setStarRating(5)" class="star-btn material-symbols-outlined text-white/40 hover:text-white transition-colors">star</button>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold uppercase mb-1 opacity-80">Message</label>
+                  <textarea id="revText" required rows="3" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder:text-white/40 focus:bg-white/20 focus:outline-none transition-all border-none ring-1 ring-white/30 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-white text-secondary font-bold py-4 rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg">Submit Review</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- About Section -->
       <section
         class="bg-primary-fixed py-stack-lg px-margin overflow-hidden relative"
@@ -426,13 +506,13 @@
           class="max-w-4xl mx-auto text-center relative z-10 bg-surface/40 backdrop-blur-md p-stack-md rounded-xl border-2 border-on-primary-fixed shadow-lg shadow-on-primary-fixed/5"
         >
           <h2
-            class="font-display-lg text-display-lg text-white-fixed mb-6 uppercase"
+            class="font-display-lg text-display-lg text-black mb-6 uppercase"
           >
             About Us
           </h2>
           <div class="space-y-8">
             <p
-              class="font-body-lg text-headline-sm text-white-fixed font-bold max-w-3xl mx-auto leading-relaxed"
+              class="font-body-lg text-headline-sm text-black font-bold max-w-3xl mx-auto leading-relaxed"
             >
               PopRush is flavored popcorn brand made for students, movie lovers,
               and snack enthusiasts.
@@ -443,20 +523,20 @@
                 Our Mission
               </h3>
               <p
-                class="font-body-lg text-body-lg text-white-fixed font-medium max-w-2xl mx-auto"
+                class="font-body-lg text-body-lg text-black font-medium max-w-2xl mx-auto"
               >
                 To deliver highly craved, boldly flavored, and ridiculously
                 affordable snacks that turn every boring moment into a main
                 event.
               </p>
             </div>
-            <div class="w-24 h-[2px] bg-on-primary-fixed/20 mx-auto"></div>
+            <div class="w-24 h-[2px] bg-black/20 mx-auto"></div>
             <div>
               <h3 class="font-headline-md text-headline-md text-secondary mb-2">
                 Our Vision
               </h3>
               <p
-                class="font-body-md text-body-md text-white-fixed max-w-2xl mx-auto"
+                class="font-body-md text-body-md text-black max-w-2xl mx-auto"
               >
                 We see a world where no one settles for bland. We're here to
                 redefine the snack aisle with relentless energy, premium
@@ -489,7 +569,7 @@
             ></a
           >
           <p class="font-body-md text-body-md text-tertiary-fixed-dim">
-            © 2024 POPRUSH Popcorn Co. Every Pop Hits Different.
+            © POPRUSH Popcorn Co. Every Pop Hits Different.
           </p>
         </div>
         <nav class="flex flex-col md:flex-row gap-6 md:gap-gutter">
@@ -582,6 +662,75 @@
           });
         }
       })();
+
+      // Review & Toast Logic
+      let selectedRevStars = 0;
+      function setStarRating(rating) {
+        selectedRevStars = rating;
+        const stars = document.querySelectorAll('#starRating .star-btn');
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.classList.add('text-white');
+            star.classList.remove('text-white/40');
+            star.style.fontVariationSettings = "'FILL' 1";
+          } else {
+            star.classList.remove('text-white');
+            star.classList.add('text-white/40');
+            star.style.fontVariationSettings = "'FILL' 0";
+          }
+        });
+      }
+
+      function showToast(message, type = 'info') {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'toast-container';
+          container.className = 'fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 pointer-events-none';
+          document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `bg-surface-container-highest text-on-surface p-4 rounded-xl shadow-2xl flex items-center gap-3 font-medium pointer-events-auto animate-toast-in border-l-4 ${
+          type === 'success' ? 'border-secondary' : type === 'error' ? 'border-error' : 'border-primary'
+        }`;
+        
+        const icon = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+        toast.innerHTML = `<span class="material-symbols-outlined">${icon}</span><span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translateX(20px)';
+          toast.style.transition = 'all 0.3s ease';
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+
+      function handleReviewSubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById('revName').value.trim();
+        const text = document.getElementById('revText').value.trim();
+        
+        if (!name || !text || selectedRevStars === 0) {
+          showToast('Please provide a name, rating, and message!', 'error');
+          return;
+        }
+
+        showToast(`Thank you, ${name}! Your review has been submitted for approval.`, 'success');
+        
+        // Reset form
+        e.target.reset();
+        setStarRating(0);
+      }
     </script>
+    <style>
+      @keyframes toast-in {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      .animate-toast-in { animation: toast-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    </style>
+
   </body>
 </html>

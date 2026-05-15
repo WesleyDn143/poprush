@@ -538,30 +538,7 @@
             </button>
           </div>
 
-          <!-- Reviews Section -->
-          <section class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm">
-            <h2
-              class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2"
-            >
-              <span
-                class="material-symbols-outlined text-secondary"
-                style="font-variation-settings: 'FILL' 1"
-                >star</span
-              >
-              What Customers Say
-            </h2>
 
-            <div class="flex flex-col gap-4">
-              <div class="bg-surface rounded-xl p-4 border border-outline-variant">
-                <p class="text-xs text-on-surface-variant italic">"Super lami and crunchy! Best popcorn ever!"</p>
-                <p class="font-label-md text-[10px] text-on-surface mt-2">- Shandy</p>
-              </div>
-              <div class="bg-surface rounded-xl p-4 border border-outline-variant">
-                <p class="text-xs text-on-surface-variant italic">"Okay lang. Gusto ko mas spicy pa siya."</p>
-                <p class="font-label-md text-[10px] text-on-surface mt-2">- Harah</p>
-              </div>
-            </div>
-          </section>
         </aside>
       </div>
     </main>
@@ -586,7 +563,7 @@
             >
           </a>
           <p class="font-body-md text-body-md text-tertiary-fixed-dim">
-            © 2024 POPRUSH Popcorn Co. Every Pop Hits Different.
+            © POPRUSH Popcorn Co. Every Pop Hits Different.
           </p>
         </div>
         <nav class="flex flex-col md:flex-row gap-6 md:gap-gutter">
@@ -769,27 +746,7 @@
         }, 3000);
       }
 
-      function submitReview() {
-        const name = document.getElementById("reviewName").value.trim();
-        const text = document.getElementById("reviewText").value.trim();
-        if (!name || !text || !selectedStars) {
-          showToast("Please fill in your name, rating, and review!", "error");
-          return;
-        }
 
-        showToast(
-          `Thanks, ${name}! Your review has been submitted. ★`,
-          "success",
-        );
-
-        document.getElementById("reviewName").value = "";
-        document.getElementById("reviewText").value = "";
-        selectedStars = 0;
-        document.querySelectorAll(".star-rate").forEach((s) => {
-          s.classList.remove("star-filled");
-          s.classList.add("star-empty");
-        });
-      }
 
       function handleCheckout(e) {
         e.preventDefault();
