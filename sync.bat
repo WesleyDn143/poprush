@@ -2,7 +2,8 @@
 setlocal enabledelayedexpansion
 
 echo [1/4] Pulling latest changes from GitHub...
-git pull
+:: Added origin main explicitly to avoid tracking errors
+git pull origin main --allow-unrelated-histories
 if %errorlevel% neq 0 (
     echo.
     echo [ERROR] Pull failed. Please check for conflicts.
@@ -28,7 +29,8 @@ if %errorlevel% neq 0 (
 
 echo.
 echo [4/4] Pushing to GitHub...
-git push
+:: Added origin main explicitly
+git push origin main
 if %errorlevel% neq 0 (
     echo.
     echo [ERROR] Push failed.
