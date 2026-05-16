@@ -191,10 +191,19 @@
         
         order.items.forEach(orderItem => {
           const product = inventory.find(p => p.name === orderItem.name);
-          if (product && product.stock > 0) {
-            // Decrement by the quantity ordered
-            product.stock = Math.max(0, product.stock - orderItem.qty);
-            stockUpdated = true;
+          if (product && product.stock) {
+            // Check if stock is an object (per-size) or flat number
+            if (typeof product.stock === 'object') {
+              const size = orderItem.size || 'Regular';
+              if (product.stock[size] > 0) {
+                product.stock[size] = Math.max(0, product.stock[size] - orderItem.qty);
+                stockUpdated = true;
+              }
+            } else if (product.stock > 0) {
+              // Fallback for flat stock
+              product.stock = Math.max(0, product.stock - orderItem.qty);
+              stockUpdated = true;
+            }
           }
         });
         
@@ -313,7 +322,7 @@
           <div class="flex justify-between items-center mb-3">
             <div>
               <span class="text-xs text-on-surface-variant">Stock</span>
-              <p class="font-bold ${item.stock < 50 ? 'text-error' : 'text-on-surface'}">${item.stock} units</p>
+              <p class="font-bold ${((typeof item.stock === 'object') ? (item.stock.Small + item.stock.Regular + item.stock.Large) : item.stock) < 50 ? 'text-error' : 'text-on-surface'}">${(typeof item.stock === 'object') ? (item.stock.Small + item.stock.Regular + item.stock.Large) : item.stock} total</p>
             </div>
             <div class="text-right">
               <span class="text-xs text-on-surface-variant">Price (Reg)</span>
@@ -350,7 +359,19 @@
     document.getElementById('productName').value = item.name;
     document.getElementById('productImage').value = item.image;
     document.getElementById('productDesc').value = item.description || '';
-    document.getElementById('productStock').value = item.stock;
+    
+    if (typeof item.stock === 'object') {
+      document.getElementById('productStockSmall').value = item.stock.Small || 0;
+      document.getElementById('productStockRegular').value = item.stock.Regular || 0;
+      document.getElementById('productStockLarge').value = item.stock.Large || 0;
+    } else {
+      // Fallback if editing an old item
+      document.getElementById('productStockSmall').value = Math.floor(item.stock / 3) || 0;
+      document.getElementById('productStockRegular').value = Math.floor(item.stock / 3) || 0;
+      document.getElementById('productStockLarge').value = Math.floor(item.stock / 3) || 0;
+    }
+    
+    document.getElementById('productCategory').value = item.category || 'Sweet';
     document.getElementById('productPriceSmall').value = item.prices.Small;
     document.getElementById('productPriceRegular').value = item.prices.Regular;
     document.getElementById('productPriceLarge').value = item.prices.Large;
@@ -367,11 +388,16 @@
       name: document.getElementById('productName').value.trim(),
       image: document.getElementById('productImage').value.trim(),
       description: document.getElementById('productDesc').value.trim(),
-      stock: parseInt(document.getElementById('productStock').value),
+      category: document.getElementById('productCategory').value,
+      stock: {
+        Small: parseInt(document.getElementById('productStockSmall').value) || 0,
+        Regular: parseInt(document.getElementById('productStockRegular').value) || 0,
+        Large: parseInt(document.getElementById('productStockLarge').value) || 0
+      },
       prices: {
-        Small: parseInt(document.getElementById('productPriceSmall').value),
-        Regular: parseInt(document.getElementById('productPriceRegular').value),
-        Large: parseInt(document.getElementById('productPriceLarge').value)
+        Small: parseInt(document.getElementById('productPriceSmall').value) || 0,
+        Regular: parseInt(document.getElementById('productPriceRegular').value) || 0,
+        Large: parseInt(document.getElementById('productPriceLarge').value) || 0
       },
       status: document.getElementById('productStatus').value
     };

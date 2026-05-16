@@ -152,11 +152,11 @@
       // Initialize inventory if not set
       if (!localStorage.getItem('poprushInventory')) {
         const inventory = [
-          { id: 1, name: 'Caramel Blast', image: 'Caramel Blast.jpg', stock: 150, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Rich and buttery caramel-coated popcorn' },
-          { id: 2, name: 'Spicy BBQ', image: 'Spicy BBQ.jpg', stock: 120, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Bold and smoky BBQ with a spicy kick' },
-          { id: 3, name: 'White Cheddar', image: 'White Cheddar.jpg', stock: 200, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Creamy, tangy white cheddar cheese' },
-          { id: 4, name: 'Choco Drizzle', image: 'Choco Drizzle.jpg', stock: 80, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Decadent chocolate drizzled popcorn' },
-          { id: 5, name: 'Matcha Melt', image: 'Matcha Melt.jpg', stock: 60, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Premium Japanese matcha flavor' }
+          { id: 1, name: 'Caramel Blast', image: 'Caramel Blast.jpg', stock: { Small: 50, Regular: 60, Large: 40 }, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Rich and buttery caramel-coated popcorn', category: 'Sweet' },
+          { id: 2, name: 'Spicy BBQ', image: 'Spicy BBQ.jpg', stock: { Small: 40, Regular: 50, Large: 30 }, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Bold and smoky BBQ with a spicy kick', category: 'Spicy' },
+          { id: 3, name: 'White Cheddar', image: 'White Cheddar.jpg', stock: { Small: 70, Regular: 80, Large: 50 }, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Creamy, tangy white cheddar cheese', category: 'Savory' },
+          { id: 4, name: 'Choco Drizzle', image: 'Choco Drizzle.jpg', stock: { Small: 30, Regular: 30, Large: 20 }, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Decadent chocolate drizzled popcorn', category: 'Sweet' },
+          { id: 5, name: 'Matcha Melt', image: 'Matcha Melt.jpg', stock: { Small: 20, Regular: 25, Large: 15 }, prices: { Small: 69, Regular: 89, Large: 129 }, status: 'active', description: 'Premium Japanese matcha flavor', category: 'Unique' }
         ];
         localStorage.setItem('poprushInventory', JSON.stringify(inventory));
       }
