@@ -184,6 +184,26 @@
     const orders = getOrders();
     const order = orders.find(o => o.orderId === orderId);
     if (order) {
+      // If moving to processing for the first time, decrement inventory
+      if (newStatus === 'processing' && order.status === 'pending') {
+        const inventory = getInventory();
+        let stockUpdated = false;
+        
+        order.items.forEach(orderItem => {
+          const product = inventory.find(p => p.name === orderItem.name);
+          if (product && product.stock > 0) {
+            // Decrement by the quantity ordered
+            product.stock = Math.max(0, product.stock - orderItem.qty);
+            stockUpdated = true;
+          }
+        });
+        
+        if (stockUpdated) {
+          saveInventory(inventory);
+          renderInventory(); // update the UI
+        }
+      }
+
       order.status = newStatus;
       saveOrders(orders);
 
